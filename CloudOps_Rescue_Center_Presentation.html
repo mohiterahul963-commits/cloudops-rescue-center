@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CloudOps Rescue Center - Project Presentation</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#f8fafc;overflow:hidden}
+.slide{display:none;width:100vw;height:100vh;padding:55px 75px;position:relative}
+.slide.active{display:flex;flex-direction:column}
+h1{font-size:54px;margin:0 0 20px;color:#fff}
+h2{font-size:40px;margin:0 0 28px}
+h3{font-size:25px;margin:10px 0}
+p,li{font-size:22px;line-height:1.55;color:#dbe5f1}
+ul{padding-left:30px}
+.subtitle{font-size:27px;color:#93c5fd;margin-top:8px}
+.badge{display:inline-block;padding:10px 16px;border:1px solid #334155;border-radius:25px;margin:8px 8px 8px 0;color:#bfdbfe;background:#111c31}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:10px}
+.card{background:#111c31;border:1px solid #26364f;border-radius:18px;padding:22px}
+.arch{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:35px}
+.box{background:#16243a;border:2px solid #3b82f6;border-radius:14px;padding:20px 25px;text-align:center;min-width:150px;font-size:20px}
+.arrow{font-size:30px;color:#60a5fa}
+.center{justify-content:center}
+.small{font-size:18px;color:#94a3b8}
+.footer{position:absolute;bottom:22px;left:75px;right:75px;display:flex;justify-content:space-between;color:#64748b;font-size:15px}
+.controls{position:fixed;bottom:20px;right:25px;z-index:100;display:flex;gap:8px}
+button{background:#2563eb;color:white;border:0;border-radius:9px;padding:10px 17px;font-size:16px;cursor:pointer}
+button:hover{background:#1d4ed8}
+.progress{position:fixed;top:0;left:0;height:4px;background:#3b82f6;z-index:100}
+code{background:#020617;padding:4px 8px;border-radius:5px;color:#93c5fd}
+.flow{font-size:25px;text-align:center;line-height:2}
+.highlight{color:#60a5fa}
+@media(max-width:800px){.slide{padding:35px}.grid{grid-template-columns:1fr}h1{font-size:40px}h2{font-size:32px}p,li{font-size:18px}.footer{left:35px;right:35px}}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<section class="slide active center">
+  <h1>CloudOps Rescue Center</h1>
+  <div class="subtitle">Cloud-Based Incident Management System</div>
+  <p style="margin-top:35px">Dockerized Microservices + Kubernetes Deployment</p>
+  <div style="margin-top:25px">
+    <span class="badge">Python</span><span class="badge">Flask</span><span class="badge">Docker</span><span class="badge">Kubernetes</span><span class="badge">Minikube</span>
+  </div>
+  <div class="footer"><span>Project Presentation</span><span>01</span></div>
+</section>
+
+<section class="slide">
+  <h2>1. Project Overview</h2>
+  <div class="grid">
+    <div class="card"><h3>What is it?</h3><p>A microservices-based incident management application designed to receive incidents and process notifications.</p></div>
+    <div class="card"><h3>Architecture</h3><p>The application contains separate services for incident management and notification processing.</p></div>
+    <div class="card"><h3>Deployment</h3><p>Services are containerized using Docker and deployed on a Kubernetes cluster using Minikube.</p></div>
+    <div class="card"><h3>Communication</h3><p>Incident API communicates with Notification Service through Kubernetes Service DNS.</p></div>
+  </div>
+  <div class="footer"><span>CloudOps Rescue Center</span><span>02</span></div>
+</section>
+
+<section class="slide">
+  <h2>2. Problem Statement</h2>
+  <div class="card">
+    <p>IT teams need a simple way to record application incidents and trigger notification processing.</p>
+    <ul>
+      <li>Incidents should be created through an API.</li>
+      <li>Each incident should contain ID, title, severity and status.</li>
+      <li>A notification process should be triggered when an incident is created.</li>
+      <li>The services should be independently deployable and containerized.</li>
+      <li>The application should run reliably inside Kubernetes.</li>
+    </ul>
+  </div>
+  <div class="footer"><span>CloudOps Rescue Center</span><span>03</span></div>
+</section>
+
+<section class="slide">
+  <h2>3. Project Objective</h2>
+  <div class="card">
+    <ul>
+      <li>Build a Python Flask Incident Management API.</li>
+      <li>Create a separate Notification Service.</li>
+      <li>Containerize both services with Docker.</li>
+      <li>Enable service-to-service communication.</li>
+      <li>Deploy both services using Kubernetes.</li>
+      <li>Expose the Incident API using a Kubernetes NodePort.</li>
+      <li>Test the complete incident-to-notification workflow.</li>
+    </ul>
+  </div>
+  <div class="footer"><span>CloudOps Rescue Center</span><span>04</span></div>
+</section>
+
+<section class="slide">
+  <h2>4. Architecture</h2>
+  <div class="arch">
+    <div class="box">Client<br><span class="small">Browser / curl</span></div>
+    <div class="arrow">→</div>
+    <div class="box">Incident API<br><span class="small">Flask :5000</span></div>
+    <div class="arrow">→</div>
+    <div class="box">Kubernetes Service<br><span class="small">notification-service</span></div>
+    <div class="arrow">→</div>
+    <div class="box">Notification Service<br><span class="small">Flask :5001</span></div>
+  </div>
+  <p style="text-align:center;margin-top:40px">Both services run as Kubernetes Pods inside the Minikube cluster.</p>
+  <div class="footer"><span>CloudOps Rescue Center</span><span>05</span></div>
+</section>
+
+<section class="slide">
+  <h2>5. Technologies Used</h2>
+  <div class="grid">
+    <div class="card"><h3>Python</h3><p>Application development and API logic.</p></div>
+    <div class="card"><h3>Flask</h3><p>Lightweight REST API framework.</p></div>
+    <div class="card"><h3>Docker</h3><p>Packages each microservice with its dependencies.</p></div>
+    <div class="card"><h3>Kubernetes</h3><p>Manages application Pods and Services.</p></div>
+    <div class="card"><h3>Minikube</h3><p>Runs a local Kubernetes cluster for development and testing.</p></div>
+    <div class="card"><h3>PowerShell / kubectl</h3><p>Used to build, deploy and verify the application.</p></div>
+  </div>
+  <div class="footer"><span>CloudOps Rescue Center</span><span>06</span></div>
+</section>
+
+<section class="slide">
+  <h2>6. Incident API</h2>
+  <div class="card">
+    <h3>Port: 5000</h3>
+    <ul>
+      <li><code>GET /</code> — confirms the API is running.</li>
+      <li><code>GET /health</code> — health check endpoint.</li>
+      <li><code>GET /incidents</code> — returns incident records.</li>
+      <li><code>POST /incidents</code> — creates a new incident.</li>
+    </ul>
+  </div>
+  <p>Example incident fields: <span class="highlight">ID, Title, Severity, Status</span></p>
+  <div class="footer"><span>CloudOps Rescue Center</span><span>07</span></div>
+</section>
+
+<section class="slide">
+  <h2>7. Notification Service</h2>
+  <div class="card">
+    <h3>Port: 5001</h3>
+    <ul>
+      <li>Runs as an independent microservice.</li>
+      <li>Receives requests from the Incident API.</li>
+      <li>Processes the notification request.</li>
+      <li>Returns a success response to the Incident API.</li>
+    </ul>
+  </div>
+  <p>Response: <code>Notification processed successfully</code></p>
+  <div class="footer"><span>CloudOps Rescue Center</span><span>08</span></div>
+</section>
+
+<section class="slide">
+  <h2>8. Docker Implementation</h2>
+  <div class="arch">
+    <div class="box">incident-api<br><span class="small">Docker Image</span></div>
+    <div class="arrow">↔</div>
+    <div class="box">Docker Network<br><span class="small">cloudops-network</span></div>
+    <div class="arrow">↔</div>
+    <div class="box">notification-service<br><span class="small">Docker Image</span></div>
+  </div>
+  <div class="card" style="margin-top:35px">
+    <p>Docker was used to create isolated, portable containers and test communication between the two microservices.</p>
+  </div>
+  <div class="footer"><span>CloudOps Rescue Center</span><span>09</span></div>
+</section>
+
+<section class="slide">
+  <h2>9. Kubernetes Deployment</h2>
+  <div class="grid">
+    <div class="card"><h3>Incident API Deployment</h3><p>Runs the Incident API Pod on port 5000.</p></div>
+    <div class="card"><h3>Incident API Service</h3><p>NodePort service exposes the API outside the cluster.</p></div>
+    <div class="card"><h3>Notification Deployment</h3><p>Runs the Notification Service Pod on port 5001.</p></div>
+    <div class="card"><h3>Notification Service</h3><p>ClusterIP service provides internal Kubernetes communication.</p></div>
+  </div>
+  <div class="footer"><span>CloudOps Rescue Center</span><span>10</span></div>
+</section>
+
+<section class="slide">
+  <h2>10. Kubernetes Service Communication</h2>
+  <p>The Incident API uses Kubernetes DNS to reach the Notification Service:</p>
+  <div class="card" style="text-align:center;margin-top:25px">
+    <h3><code>http://notification-service:5001/notify</code></h3>
+  </div>
+  <div class="flow" style="margin-top:35px">
+    Incident API Pod<br>
+    ↓<br>
+    <span class="highlight">notification-service</span><br>
+    ↓<br>
+    Notification Service Pod
+  </div>
+  <div class="footer"><span>CloudOps Rescue Center</span><span>11</span></div>
+</section>
+
+<section class="slide">
+  <h2>11. Testing</h2>
+  <div class="card">
+    <ul>
+      <li>Both Kubernetes Pods reached <strong>Running</strong> state.</li>
+      <li>Service endpoints correctly mapped to Pods.</li>
+      <li>Notification Service was successfully reached using Kubernetes DNS.</li>
+      <li>Incident API root endpoint returned successfully.</li>
+      <li>Health endpoint returned <code>{"status":"healthy"}</code>.</li>
+      <li>POST incident request successfully triggered notification processing.</li>
+    </ul>
+  </div>
+  <div class="footer"><span>CloudOps Rescue Center</span><span>12</span></div>
+</section>
+
+<section class="slide">
+  <h2>12. Final End-to-End Result</h2>
+  <div class="card" style="margin-top:20px">
+    <p><strong>Request:</strong></p>
+    <p><code>POST /incidents</code> with ID, title and severity</p>
+    <p><strong>Result:</strong></p>
+    <p>Incident created successfully</p>
+    <p>Notification processed successfully</p>
+  </div>
+  <p style="margin-top:30px;font-size:26px;color:#60a5fa">End-to-end microservice communication verified successfully. ✓</p>
+  <div class="footer"><span>CloudOps Rescue Center</span><span>13</span></div>
+</section>
+
+<section class="slide">
+  <h2>13. Key Features</h2>
+  <div class="grid">
+    <div class="card"><h3>Microservices</h3><p>Application logic is separated into independent services.</p></div>
+    <div class="card"><h3>Containerization</h3><p>Docker provides consistent application environments.</p></div>
+    <div class="card"><h3>Service Discovery</h3><p>Kubernetes DNS connects services internally.</p></div>
+    <div class="card"><h3>Health Monitoring</h3><p>Health endpoint verifies API availability.</p></div>
+  </div>
+  <div class="footer"><span>CloudOps Rescue Center</span><span>14</span></div>
+</section>
+
+<section class="slide">
+  <h2>14. What I Learned</h2>
+  <div class="card">
+    <ul>
+      <li>How to build APIs using Python Flask.</li>
+      <li>How to create Docker images and containers.</li>
+      <li>How Docker networking enables service communication.</li>
+      <li>How Kubernetes Deployments manage Pods.</li>
+      <li>How Kubernetes Services expose and connect applications.</li>
+      <li>How to use Minikube and kubectl for deployment and testing.</li>
+    </ul>
+  </div>
+  <div class="footer"><span>CloudOps Rescue Center</span><span>15</span></div>
+</section>
+
+<section class="slide center">
+  <h1>Thank You</h1>
+  <div class="subtitle">CloudOps Rescue Center</div>
+  <p style="margin-top:30px">Questions?</p>
+  <div class="footer"><span>Project Presentation</span><span>16</span></div>
+</section>
+
+<div class="controls">
+  <button onclick="prevSlide()">← Previous</button>
+  <button onclick="nextSlide()">Next →</button>
+</div>
+
+<script>
+let current=0;
+const slides=document.querySelectorAll('.slide');
+function show(n){
+  current=(n+slides.length)%slides.length;
+  slides.forEach((s,i)=>s.classList.toggle('active',i===current));
+  document.getElementById('progress').style.width=((current+1)/slides.length*100)+'%';
+}
+function nextSlide(){show(current+1)}
+function prevSlide(){show(current-1)}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown') nextSlide();
+  if(e.key==='ArrowLeft'||e.key==='PageUp') prevSlide();
+});
+show(0);
+</script>
+</body>
+</html>

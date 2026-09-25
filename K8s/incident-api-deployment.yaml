@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: incident-api
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: incident-api
+
+  template:
+    metadata:
+      labels:
+        app: incident-api
+
+    spec:
+      containers:
+        - name: incident-api
+          image: incident-api:latest
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 5000

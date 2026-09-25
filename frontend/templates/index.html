@@ -1,0 +1,2245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CloudOps Rescue Center</title>
+
+    <style>
+        /* =========================
+           GLOBAL STYLES
+        ========================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #07111f;
+            color: #f8fafc;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background: rgba(7, 17, 31, 0.95);
+            backdrop-filter: blur(10px);
+
+            border-bottom: 1px solid #203651;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+
+            padding: 16px 24px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #60a5fa;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #9fb1c7;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .menu-button {
+            display: none;
+
+            background: none;
+            border: none;
+
+            color: white;
+            font-size: 25px;
+
+            cursor: pointer;
+        }
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .hero {
+            min-height: 650px;
+
+            display: flex;
+            align-items: center;
+
+            background:
+                radial-gradient(
+                    circle at 80% 20%,
+                    #12355d 0,
+                    transparent 35%
+                ),
+                linear-gradient(
+                    135deg,
+                    #07111f,
+                    #0a1728
+                );
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            width: 100%;
+
+            margin: auto;
+            padding: 70px 24px;
+
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+
+            gap: 60px;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 8px 14px;
+
+            border: 1px solid #31537b;
+            border-radius: 30px;
+
+            background: #10243d;
+
+            color: #9dcbff;
+
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .hero h1 {
+            font-size: 62px;
+            line-height: 1.05;
+
+            margin: 20px 0;
+        }
+
+        .hero h1 span {
+            color: #60a5fa;
+        }
+
+        .hero p {
+            max-width: 650px;
+
+            color: #9fb1c7;
+
+            font-size: 19px;
+            line-height: 1.7;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+
+            margin-top: 30px;
+
+            flex-wrap: wrap;
+        }
+
+        .button {
+            padding: 13px 20px;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            border: none;
+        }
+
+        .primary-button {
+            background: #2563eb;
+            color: white;
+        }
+
+        .primary-button:hover {
+            background: #1d4ed8;
+        }
+
+        .secondary-button {
+            background: #172b45;
+            color: #dcecff;
+
+            border: 1px solid #2a4566;
+        }
+
+        .hero-card {
+            background: #0d1b2e;
+
+            border: 1px solid #294462;
+
+            border-radius: 20px;
+
+            padding: 25px;
+
+            box-shadow: 0 20px 70px rgba(0, 0, 0, 0.3);
+        }
+
+        .system-status {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 20px;
+
+            color: #b8c9dc;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+
+            box-shadow: 0 0 12px #22c55e;
+        }
+
+        .architecture-mini {
+            display: flex;
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+        .architecture-box {
+            padding: 16px;
+
+            background: #11263f;
+
+            border: 1px solid #315378;
+
+            border-radius: 10px;
+
+            text-align: center;
+        }
+
+        .arrow {
+            text-align: center;
+
+            color: #60a5fa;
+
+            font-size: 25px;
+        }
+
+        /* =========================
+           COMMON SECTION
+        ========================== */
+
+        section {
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 85px 24px;
+        }
+
+        .section-title {
+            margin-bottom: 35px;
+        }
+
+        .eyebrow {
+            color: #60a5fa;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.5px;
+        }
+
+        h2 {
+            font-size: 40px;
+
+            margin: 10px 0;
+        }
+
+        .section-title p {
+            max-width: 700px;
+
+            color: #9fb1c7;
+
+            line-height: 1.6;
+        }
+
+        /* =========================
+           CARDS
+        ========================== */
+
+        .grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+        .card {
+            background: #0d1b2e;
+
+            border: 1px solid #203651;
+
+            border-radius: 16px;
+
+            padding: 23px;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+
+            font-size: 20px;
+        }
+
+        .card p,
+        .card li {
+            color: #9fb1c7;
+
+            line-height: 1.65;
+        }
+
+        .icon {
+            font-size: 32px;
+
+            margin-bottom: 12px;
+        }
+
+        /* =========================
+           ARCHITECTURE
+        ========================== */
+
+        .architecture-section {
+            max-width: none;
+
+            background: #09172a;
+
+            border-top: 1px solid #152a43;
+            border-bottom: 1px solid #152a43;
+        }
+
+        .architecture-container {
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 85px 24px;
+        }
+
+        .architecture-diagram {
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+            margin-top: 40px;
+        }
+
+        .architecture-node {
+            min-width: 170px;
+
+            padding: 22px;
+
+            background: #10243d;
+
+            border: 2px solid #2d5b8d;
+
+            border-radius: 13px;
+
+            text-align: center;
+        }
+
+        .architecture-arrow {
+            color: #60a5fa;
+
+            font-size: 28px;
+        }
+
+        /* =========================
+           TECHNOLOGIES
+        ========================== */
+
+        .technology-list {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+        }
+
+        .technology {
+            padding: 10px 14px;
+
+            background: #10243d;
+
+            border: 1px solid #294462;
+
+            border-radius: 8px;
+
+            color: #cce4ff;
+        }
+
+        /* =========================
+           INCIDENT TABLE
+        ========================== */
+
+        .incident-table-container {
+            overflow-x: auto;
+
+            background: #0d1b2e;
+
+            border: 1px solid #203651;
+
+            border-radius: 15px;
+        }
+
+        .incident-table {
+            width: 100%;
+
+            border-collapse: collapse;
+        }
+
+        .incident-table th,
+        .incident-table td {
+            padding: 15px;
+
+            text-align: left;
+
+            border-bottom: 1px solid #203651;
+        }
+
+        .incident-table th {
+            color: #a9c2dc;
+
+            font-size: 14px;
+        }
+
+        .incident-table td {
+            color: #d9e7f6;
+        }
+
+        .status-pill {
+            display: inline-block;
+
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+        .high {
+            background: #3a1519;
+            color: #ff8e97;
+        }
+
+        .medium {
+            background: #392c12;
+            color: #ffc85e;
+        }
+
+        .low {
+            background: #112c3a;
+            color: #7dd3fc;
+        }
+
+        .open {
+            background: #102f20;
+            color: #72e39a;
+        }
+
+        /* =========================
+           API SECTION
+        ========================== */
+
+        .api-section {
+            max-width: none;
+
+            background: #09172a;
+
+            border-top: 1px solid #152a43;
+            border-bottom: 1px solid #152a43;
+        }
+
+        .api-container {
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 85px 24px;
+        }
+
+        .api-layout {
+            display: grid;
+
+            grid-template-columns:
+                0.9fr 1.1fr;
+
+            gap: 25px;
+        }
+
+        .form {
+            display: grid;
+
+            gap: 13px;
+        }
+
+        .form label {
+            color: #c9d8e8;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+        .form input,
+        .form select {
+            width: 100%;
+
+            padding: 13px;
+
+            background: #091525;
+
+            border: 1px solid #294462;
+
+            border-radius: 9px;
+
+            color: white;
+
+            outline: none;
+        }
+
+        .form input:focus,
+        .form select:focus {
+            border-color: #3b82f6;
+        }
+
+        .result {
+            min-height: 300px;
+
+            padding: 20px;
+
+            background: #050c15;
+
+            border: 1px solid #243a52;
+
+            border-radius: 12px;
+
+            white-space: pre-wrap;
+
+            overflow: auto;
+
+            color: #b8f7c9;
+
+            font-family: Consolas, monospace;
+
+            font-size: 13px;
+        }
+
+        /* =========================
+           API ENDPOINTS
+        ========================== */
+
+        code {
+            padding: 4px 7px;
+
+            background: #020617;
+
+            border-radius: 5px;
+
+            color: #93c5fd;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            border-top: 1px solid #203651;
+
+            padding: 30px 20px;
+
+            text-align: center;
+
+            color: #8195ad;
+        }
+
+        /* =========================
+           TOAST
+        ========================== */
+
+        .toast {
+            display: none;
+
+            position: fixed;
+
+            right: 20px;
+            bottom: 20px;
+
+            z-index: 2000;
+
+            padding: 14px 18px;
+
+            background: #10243d;
+
+            border: 1px solid #315378;
+
+            border-radius: 10px;
+
+            color: white;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 900px) {
+
+            .hero-container {
+                grid-template-columns: 1fr;
+            }
+
+            .api-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 45px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            section {
+                padding: 60px 18px;
+            }
+
+            .hero-container {
+                padding: 55px 18px;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                padding: 14px 18px;
+            }
+
+            .architecture-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+<!-- =========================
+     NAVIGATION
+========================== -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <div class="logo">
+            CloudOps <span>Rescue Center</span>
+        </div>
+
+        <button
+            class="menu-button"
+            onclick="toggleMenu()">
+
+            ☰
+
+        </button>
+
+        <div
+            class="nav-links"
+            id="navLinks">
+
+            <a href="#home">Home</a>
+
+            <a href="#features">Features</a>
+
+            <a href="#incidents">Incidents</a>
+
+            <a href="#architecture">Architecture</a>
+
+            <a href="#api">API Demo</a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     HERO
+========================== -->
+
+<header
+    class="hero"
+    id="home">
+
+    <div class="hero-container">
+
+        <div>
+
+            <span class="badge">
+
+                KUBERNETES • DOCKER • PYTHON
+
+            </span>
+
+
+            <h1>
+
+                CloudOps
+
+                <br>
+
+                <span>Rescue Center</span>
+
+            </h1>
+
+
+            <p>
+
+                A cloud-native incident management platform
+                built with Python Flask microservices,
+                Docker containers and Kubernetes.
+
+                Create incidents, monitor service health
+                and trigger notification processing
+                through a simple API-driven workflow.
+
+            </p>
+
+
+            <div class="buttons">
+
+                <a
+                    class="button primary-button"
+                    href="#api">
+
+                    Create Incident
+
+                </a>
+
+
+                <a
+                    class="button secondary-button"
+                    href="#architecture">
+
+                    View Architecture
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-card">
+
+            <div class="system-status">
+
+                <span class="status-dot"></span>
+
+                System Architecture
+
+            </div>
+
+
+            <div class="architecture-mini">
+
+                <div class="architecture-box">
+
+                    👤 Client / Website
+
+                </div>
+
+
+                <div class="arrow">
+
+                    ↓
+
+                </div>
+
+
+                <div class="architecture-box">
+
+                    🚨 Incident API
+                    <br>
+
+                    Port 5000
+
+                </div>
+
+
+                <div class="arrow">
+
+                    ↓
+
+                </div>
+
+
+                <div class="architecture-box">
+
+                    🔔 Notification Service
+                    <br>
+
+                    Port 5001
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     FEATURES
+========================== -->
+
+<section id="features">
+
+    <div class="section-title">
+
+        <div class="eyebrow">
+
+            PLATFORM
+
+        </div>
+
+
+        <h2>
+
+            Built for incident workflows
+
+        </h2>
+
+
+        <p>
+
+            The project demonstrates a practical
+            microservices deployment workflow from
+            application development to containerization
+            and Kubernetes deployment.
+
+        </p>
+
+    </div>
+
+
+    <div class="grid">
+
+
+        <div class="card">
+
+            <div class="icon">
+
+                🚨
+
+            </div>
+
+            <h3>
+
+                Incident Management
+
+            </h3>
+
+            <p>
+
+                Create and retrieve incidents with
+                ID, title, severity and status.
+
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">
+
+                🔔
+
+            </div>
+
+            <h3>
+
+                Notifications
+
+            </h3>
+
+            <p>
+
+                A separate notification microservice
+                processes notification requests.
+
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">
+
+                ☸️
+
+            </div>
+
+            <h3>
+
+                Kubernetes Ready
+
+            </h3>
+
+            <p>
+
+                Deployments and Services run the
+                application inside a Minikube cluster.
+
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">
+
+                🐳
+
+            </div>
+
+            <h3>
+
+                Dockerized
+
+            </h3>
+
+            <p>
+
+                Each microservice is packaged into
+                its own Docker image.
+
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">
+
+                ❤️
+
+            </div>
+
+            <h3>
+
+                Health Check
+
+            </h3>
+
+            <p>
+
+                The Incident API provides a health
+                endpoint for service verification.
+
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">
+
+                🔗
+
+            </div>
+
+            <h3>
+
+                Service Discovery
+
+            </h3>
+
+            <p>
+
+                Kubernetes DNS connects the Incident
+                API to the Notification Service.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ARCHITECTURE
+========================== -->
+
+<div
+    class="architecture-section"
+    id="architecture">
+
+    <div class="architecture-container">
+
+        <div class="section-title">
+
+            <div class="eyebrow">
+
+                ARCHITECTURE
+
+            </div>
+
+
+            <h2>
+
+                How the system works
+
+            </h2>
+
+
+            <p>
+
+                The application separates responsibilities
+                into services and uses Kubernetes networking
+                for internal communication.
+
+            </p>
+
+        </div>
+
+
+        <div class="architecture-diagram">
+
+
+            <div class="architecture-node">
+
+                👤
+
+                <br>
+
+                <strong>Client</strong>
+
+                <br>
+
+                <small>
+
+                    Browser / curl
+
+                </small>
+
+            </div>
+
+
+            <div class="architecture-arrow">
+
+                →
+
+            </div>
+
+
+            <div class="architecture-node">
+
+                🚨
+
+                <br>
+
+                <strong>Incident API</strong>
+
+                <br>
+
+                <small>
+
+                    Flask :5000
+
+                </small>
+
+            </div>
+
+
+            <div class="architecture-arrow">
+
+                →
+
+            </div>
+
+
+            <div class="architecture-node">
+
+                🔔
+
+                <br>
+
+                <strong>Notification Service</strong>
+
+                <br>
+
+                <small>
+
+                    Flask :5001
+
+                </small>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="architecture-diagram">
+
+
+            <div class="architecture-node">
+
+                🐳
+
+                <br>
+
+                <strong>Docker</strong>
+
+                <br>
+
+                <small>
+
+                    Containerization
+
+                </small>
+
+            </div>
+
+
+            <div class="architecture-arrow">
+
+                →
+
+            </div>
+
+
+            <div class="architecture-node">
+
+                ☸️
+
+                <br>
+
+                <strong>Minikube</strong>
+
+                <br>
+
+                <small>
+
+                    Kubernetes Cluster
+
+                </small>
+
+            </div>
+
+
+            <div class="architecture-arrow">
+
+                →
+
+            </div>
+
+
+            <div class="architecture-node">
+
+                🔗
+
+                <br>
+
+                <strong>Kubernetes Services</strong>
+
+                <br>
+
+                <small>
+
+                    Service Discovery
+
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     TECHNOLOGY STACK
+========================== -->
+
+<section>
+
+    <div class="section-title">
+
+        <div class="eyebrow">
+
+            TECHNOLOGY STACK
+
+        </div>
+
+
+        <h2>
+
+            Tools used in the project
+
+        </h2>
+
+    </div>
+
+
+    <div class="technology-list">
+
+        <span class="technology">Python</span>
+
+        <span class="technology">Flask</span>
+
+        <span class="technology">REST API</span>
+
+        <span class="technology">Requests</span>
+
+        <span class="technology">Docker</span>
+
+        <span class="technology">Docker Networking</span>
+
+        <span class="technology">Kubernetes</span>
+
+        <span class="technology">Minikube</span>
+
+        <span class="technology">kubectl</span>
+
+        <span class="technology">YAML</span>
+
+        <span class="technology">PowerShell</span>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     INCIDENTS
+========================== -->
+
+<section id="incidents">
+
+    <div class="section-title">
+
+        <div class="eyebrow">
+
+            INCIDENT CENTER
+
+        </div>
+
+
+        <h2>
+
+            Current incidents
+
+        </h2>
+
+
+        <p>
+
+            Demo incidents are shown below.
+            New incidents created using the API
+            form will appear in this table.
+
+        </p>
+
+    </div>
+
+
+    <div class="incident-table-container">
+
+        <table class="incident-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Title</th>
+
+                    <th>Severity</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="incidentTable">
+
+                <tr>
+
+                    <td>INC001</td>
+
+                    <td>Website Down</td>
+
+                    <td>
+
+                        <span class="status-pill high">
+
+                            HIGH
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <span class="status-pill open">
+
+                            OPEN
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>INC002</td>
+
+                    <td>Database Error</td>
+
+                    <td>
+
+                        <span class="status-pill medium">
+
+                            MEDIUM
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <span class="status-pill open">
+
+                            OPEN
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     API DEMO
+========================== -->
+
+<div
+    class="api-section"
+    id="api">
+
+    <div class="api-container">
+
+        <div class="section-title">
+
+            <div class="eyebrow">
+
+                LIVE API DEMO
+
+            </div>
+
+
+            <h2>
+
+                Create an incident
+
+            </h2>
+
+
+            <p>
+
+                This form sends a POST request to
+                your Kubernetes Incident API.
+
+            </p>
+
+        </div>
+
+
+        <div class="api-layout">
+
+
+            <!-- FORM -->
+
+            <div class="card">
+
+                <div class="form">
+
+
+                    <label>
+
+                        Incident API URL
+
+                    </label>
+
+
+                    <input
+                        id="apiUrl"
+                        value="http://127.0.0.1:62696"
+                        placeholder="http://127.0.0.1:62696"
+                    >
+
+
+                    <label>
+
+                        Incident ID
+
+                    </label>
+
+
+                    <input
+                        id="incidentId"
+                        value="INC003"
+                        placeholder="INC003"
+                    >
+
+
+                    <label>
+
+                        Incident Title
+
+                    </label>
+
+
+                    <input
+                        id="incidentTitle"
+                        value="Server Down"
+                        placeholder="Server Down"
+                    >
+
+
+                    <label>
+
+                        Severity
+
+                    </label>
+
+
+                    <select id="severity">
+
+                        <option value="HIGH">
+
+                            HIGH
+
+                        </option>
+
+                        <option value="MEDIUM">
+
+                            MEDIUM
+
+                        </option>
+
+                        <option value="LOW">
+
+                            LOW
+
+                        </option>
+
+                    </select>
+
+
+                    <button
+                        class="button primary-button"
+                        onclick="createIncident()">
+
+                        Create Incident
+
+                    </button>
+
+
+                    <button
+                        class="button secondary-button"
+                        onclick="checkHealth()">
+
+                        Check API Health
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESULT -->
+
+            <div>
+
+                <div
+                    class="result"
+                    id="result">
+
+                    API response will appear here...
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     API ENDPOINTS
+========================== -->
+
+<section>
+
+    <div class="section-title">
+
+        <div class="eyebrow">
+
+            API
+
+        </div>
+
+
+        <h2>
+
+            Incident API endpoints
+
+        </h2>
+
+    </div>
+
+
+    <div class="grid">
+
+
+        <div class="card">
+
+            <h3>
+
+                GET /
+
+            </h3>
+
+            <p>
+
+                Checks whether the Incident API
+                is running.
+
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+
+                GET /health
+
+            </h3>
+
+            <p>
+
+                Returns the health status
+                of the API.
+
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+
+                GET /incidents
+
+            </h3>
+
+            <p>
+
+                Returns the incident list.
+
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+
+                POST /incidents
+
+            </h3>
+
+            <p>
+
+                Creates an incident and triggers
+                notification processing.
+
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+
+                Notification Service
+
+            </h3>
+
+            <p>
+
+                <code>
+
+                    notification-service:5001/notify
+
+                </code>
+
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+
+                NodePort
+
+            </h3>
+
+            <p>
+
+                Incident API is exposed using
+                a Kubernetes NodePort.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PROJECT FLOW
+========================== -->
+
+<section>
+
+    <div class="section-title">
+
+        <div class="eyebrow">
+
+            PROJECT FLOW
+
+        </div>
+
+
+        <h2>
+
+            Complete workflow
+
+        </h2>
+
+    </div>
+
+
+    <div class="card">
+
+        <p style="
+            text-align:center;
+            font-size:20px;
+        ">
+
+            👤 Client
+
+            →
+
+            🚨 Incident API
+
+            →
+
+            ☸️ Kubernetes Service
+
+            →
+
+            🔔 Notification Service
+
+            →
+
+            ✅ Notification Processed
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================== -->
+
+<footer>
+
+    <strong>
+
+        CloudOps Rescue Center
+
+    </strong>
+
+    <br><br>
+
+    Python Flask • Docker • Kubernetes • Minikube
+
+</footer>
+
+
+<!-- =========================
+     TOAST
+========================== -->
+
+<div
+    class="toast"
+    id="toast">
+
+    Success
+
+</div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================== -->
+
+<script>
+
+    /* =========================
+       MOBILE MENU
+    ========================== */
+
+    function toggleMenu() {
+
+        const nav =
+            document.getElementById("navLinks");
+
+        if (
+            nav.style.display === "flex"
+        ) {
+
+            nav.style.display = "none";
+
+        } else {
+
+            nav.style.display = "flex";
+
+            nav.style.flexDirection =
+                "column";
+
+            nav.style.position =
+                "absolute";
+
+            nav.style.top = "65px";
+
+            nav.style.right = "20px";
+
+            nav.style.background =
+                "#0d1b2e";
+
+            nav.style.padding =
+                "20px";
+
+            nav.style.borderRadius =
+                "10px";
+
+            nav.style.border =
+                "1px solid #203651";
+
+        }
+
+    }
+
+
+    /* =========================
+       TOAST MESSAGE
+    ========================== */
+
+    function showToast(message) {
+
+        const toast =
+            document.getElementById("toast");
+
+        toast.textContent = message;
+
+        toast.style.display = "block";
+
+
+        setTimeout(function () {
+
+            toast.style.display = "none";
+
+        }, 3000);
+
+    }
+
+
+    /* =========================
+       CREATE INCIDENT
+    ========================== */
+
+    async function createIncident() {
+
+        const apiUrl =
+            document
+                .getElementById("apiUrl")
+                .value
+                .replace(/\/+$/, "");
+
+
+        const incidentId =
+            document
+                .getElementById("incidentId")
+                .value
+                .trim();
+
+
+        const title =
+            document
+                .getElementById("incidentTitle")
+                .value
+                .trim();
+
+
+        const severity =
+            document
+                .getElementById("severity")
+                .value;
+
+
+        const result =
+            document
+                .getElementById("result");
+
+
+        /* Validate */
+
+        if (
+            !apiUrl ||
+            !incidentId ||
+            !title
+        ) {
+
+            result.textContent =
+                "Please fill all required fields.";
+
+            return;
+
+        }
+
+
+        /* Create form data */
+
+        const formData =
+            new FormData();
+
+
+        formData.append(
+            "id",
+            incidentId
+        );
+
+
+        formData.append(
+            "title",
+            title
+        );
+
+
+        formData.append(
+            "severity",
+            severity
+        );
+
+
+        result.textContent =
+            "Sending request...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    apiUrl + "/incidents",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                );
+
+
+            const text =
+                await response.text();
+
+
+            let data;
+
+
+            try {
+
+                data =
+                    JSON.parse(text);
+
+            } catch {
+
+                data = text;
+
+            }
+
+
+            result.textContent =
+                JSON.stringify(
+                    data,
+                    null,
+                    4
+                );
+
+
+            if (response.ok) {
+
+                showToast(
+                    "Incident created successfully!"
+                );
+
+
+                addIncidentToTable(
+                    incidentId,
+                    title,
+                    severity
+                );
+
+            } else {
+
+                showToast(
+                    "API returned an error."
+                );
+
+            }
+
+
+        } catch (error) {
+
+            result.textContent =
+                "Connection failed.\n\n" +
+
+                "Make sure:\n" +
+
+                "1. Minikube is running.\n" +
+
+                "2. The API service is running.\n" +
+
+                "3. The API URL is correct.\n" +
+
+                "4. The browser can access the API.\n\n" +
+
+                "Error: " +
+
+                error.message;
+
+        }
+
+    }
+
+
+    /* =========================
+       HEALTH CHECK
+    ========================== */
+
+    async function checkHealth() {
+
+        const apiUrl =
+            document
+                .getElementById("apiUrl")
+                .value
+                .replace(/\/+$/, "");
+
+
+        const result =
+            document
+                .getElementById("result");
+
+
+        result.textContent =
+            "Checking API health...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    apiUrl + "/health"
+                );
+
+
+            const data =
+                await response.json();
+
+
+            result.textContent =
+                JSON.stringify(
+                    data,
+                    null,
+                    4
+                );
+
+
+            showToast(
+                "API health check successful!"
+            );
+
+
+        } catch (error) {
+
+            result.textContent =
+                "Health check failed.\n\n" +
+
+                error.message;
+
+        }
+
+    }
+
+
+    /* =========================
+       ADD INCIDENT TO TABLE
+    ========================== */
+
+    function addIncidentToTable(
+        id,
+        title,
+        severity
+    ) {
+
+        const table =
+            document.getElementById(
+                "incidentTable"
+            );
+
+
+        const row =
+            document.createElement("tr");
+
+
+        let severityClass =
+            "low";
+
+
+        if (
+            severity === "HIGH"
+        ) {
+
+            severityClass =
+                "high";
+
+        } else if (
+            severity === "MEDIUM"
+        ) {
+
+            severityClass =
+                "medium";
+
+        }
+
+
+        row.innerHTML = `
+
+            <td>
+                ${escapeHtml(id)}
+            </td>
+
+            <td>
+                ${escapeHtml(title)}
+            </td>
+
+            <td>
+
+                <span
+                    class="status-pill ${severityClass}">
+
+                    ${escapeHtml(severity)}
+
+                </span>
+
+            </td>
+
+            <td>
+
+                <span
+                    class="status-pill open">
+
+                    OPEN
+
+                </span>
+
+            </td>
+
+        `;
+
+
+        table.appendChild(row);
+
+    }
+
+
+    /* =========================
+       HTML SECURITY
+    ========================== */
+
+    function escapeHtml(value) {
+
+        return String(value)
+
+            .replace(
+                /[&<>"']/g,
+                function(character) {
+
+                    const entities = {
+
+                        "&": "&amp;",
+
+                        "<": "&lt;",
+
+                        ">": "&gt;",
+
+                        '"': "&quot;",
+
+                        "'": "&#039;"
+
+                    };
+
+
+                    return entities[
+                        character
+                    ];
+
+                }
+            );
+
+    }
+
+</script>
+
+</body>
+</html>
