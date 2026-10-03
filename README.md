@@ -1,10 +1,3 @@
-<img width="1877" height="908" alt="Screenshot 2026-10-03 205850" src="https://github.com/user-attachments/assets/886abb16-8031-487e-b936-662e3c9729c4" />
-<img width="1890" height="906" alt="Screenshot 2026-10-03 211208" src="https://github.com/user-attachments/assets/5aacc4f5-12b8-43c7-86d7-a11a36bb7c9a" />
-<img width="1890" height="920" alt="Screenshot 2026-10-03 211229" src="https://github.com/user-attachments/assets/c7bca242-a9e6-49ff-b19a-38f3ecbdab1d" />
-
-
-
-
 # 🚀 CloudOps Rescue Center
 
 ## 📌 Project Overview
@@ -113,3 +106,6 @@ Aspiring Cloud Engineer | AWS | Linux | Python | Docker | Kubernetes
 ---
 
 ⭐ If you find this project useful, feel free to explore the repository and suggest improvements.
+<img width="1877" height="908" alt="Screenshot 2026-10-03 205850" src="https://github.com/user-attachments/assets/886abb16-8031-487e-b936-662e3c9729c4" />
+<img width="1890" height="906" alt="Screenshot 2026-10-03 211208" src="https://github.com/user-attachments/assets/5aacc4f5-12b8-43c7-86d7-a11a36bb7c9a" />
+<img width="1890" height="920" alt="Screenshot 2026-10-03 211229" src="https://github.com/user-attachments/assets/c7bca242-a9e6-49ff-b19a-38f3ecbdab1d" />
